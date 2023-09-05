@@ -1,9 +1,9 @@
+package selenide;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import page.MainPage;
-
-import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class TestSuccessfulOrder {
@@ -28,8 +28,9 @@ public class TestSuccessfulOrder {
 
         mainPage.scrollToOrder(number);
 
-        mainPage.getElements().get(number).click();
+        mainPage.getListMenu().get(number).click();
 
+        mainPage.getListMenu().get(number).click();
     }
 
 }

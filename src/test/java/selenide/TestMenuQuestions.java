@@ -49,8 +49,8 @@ public class TestMenuQuestions {
 
         mainPage.scrollToHeader();
 
-        mainPage.getElements().get(number).click();
+        mainPage.getListMenu().get(number).click();
 
-        assertTrue(mainPage.getElements().get(number).shouldBe(Condition.text(quest)).isDisplayed());
+        assertTrue(mainPage.getListMenu().get(number).shouldBe(Condition.text(quest)).isDisplayed());
     }
 }
