@@ -47,7 +47,7 @@ public class TestCheckHref {
 
         MainPage mainPage = new MainPage(driver);
 
-        assertEquals(expected, mainPage.checkLogo(nameLogo));
+        assertEquals("Ссылка не корректная", expected, mainPage.checkLogo(nameLogo));
     }
 
     @After

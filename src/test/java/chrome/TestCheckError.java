@@ -53,7 +53,7 @@ public class TestCheckError {
 
         orderPage.clickNextButton();
 
-        assertEquals(message, orderPage.getListErrorMessage().get(number).getText());
+        assertEquals("Сообщение о подсказке не корректное", message, orderPage.getListErrorMessage().get(number).getText());
     }
 
     @After
