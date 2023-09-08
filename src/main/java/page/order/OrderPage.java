@@ -1,5 +1,6 @@
 package page.order;
 
+import core.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,13 +9,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class OrderPage {
-
-    private final WebDriver driver;
+public class OrderPage extends BasePage {
 
     public OrderPage(WebDriver driver) {
-        this.driver = driver;
+        BasePage.driver = driver;
     }
+
+    public OrderPage(){}
 
     private final By name = By.xpath(".//input[@placeholder='* Имя']");
     private final By surname = By.xpath(".//input[@placeholder='* Фамилия']");
@@ -40,10 +41,6 @@ public class OrderPage {
 
     public void clickNextButton() {
         driver.findElement(nextButton).click();
-    }
-
-    public void clickСookButtonSelenium() {
-        driver.findElement(cookButtonSelenium).click();
     }
 
     public void clickOkButton() {

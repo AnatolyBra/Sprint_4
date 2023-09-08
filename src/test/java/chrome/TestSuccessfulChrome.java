@@ -1,14 +1,8 @@
 package chrome;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import page.MainPage;
 import page.order.OrderPage;
 
@@ -48,21 +42,9 @@ public class TestSuccessfulChrome {
         };
     }
 
-    private WebDriver driver;
-
-    @Before
-    public void startUp() {
-        WebDriverManager.chromedriver().setup();
-    }
-
     @Test
     public void orderTest() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-
-        MainPage mainPage = new MainPage(driver);
+        MainPage mainPage = new MainPage();
 
         mainPage.acceptByCook();
 
@@ -70,7 +52,7 @@ public class TestSuccessfulChrome {
 
         mainPage.getOrderButtonsSelenium().get(number).click();
 
-        OrderPage orderPage = new OrderPage(driver);
+        OrderPage orderPage = new OrderPage();
 
         orderPage.setName(name);
         orderPage.setSurname(surname);
@@ -80,7 +62,6 @@ public class TestSuccessfulChrome {
 
         orderPage.clickNextButton();
 
-
         orderPage.setDate(date);
         orderPage.setRentalPeriod(period);
         orderPage.checkBoxBlackScooterSelenium();
@@ -89,11 +70,5 @@ public class TestSuccessfulChrome {
         orderPage.clickOkButton();
 
         assertTrue("Заказ не оформлен", orderPage.orderIsProcessedIsVisible());
-    }
-
-    @After
-    public void teardown() {
-        // Закрой браузер
-        driver.quit();
     }
 }

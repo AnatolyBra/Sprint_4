@@ -81,6 +81,7 @@ public class TestMenuQuestionsFirefox {
     @After
     public void teardown() {
         // Закрой браузер
+        driver.close();
         driver.quit();
     }
 }

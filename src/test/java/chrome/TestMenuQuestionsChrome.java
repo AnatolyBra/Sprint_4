@@ -1,22 +1,15 @@
 package chrome;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
+import core.BaseTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import page.MainPage;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class TestMenuQuestionsChrome {
+public class TestMenuQuestionsChrome extends BaseTest {
     private final String quest;
     private final int number;
 
@@ -48,36 +41,18 @@ public class TestMenuQuestionsChrome {
         };
     }
 
-    private WebDriver driver;
-
-    @Before
-    public void startUp() {
-        WebDriverManager.chromedriver().setup();
-    }
-
     @Test
     public void accordingMenuChromeTest() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox", "--disable-dev-shm-usage");
-        driver = new ChromeDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-
-        MainPage mainPage = new MainPage(driver);
+        MainPage mainPage = new MainPage();
 
         mainPage.acceptByCook();
 
         mainPage.scrollToByHeader();
 
         mainPage.getElementsHeaderBy().get(number).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.visibilityOf(mainPage.getElementsBy().get(number)));
+
+        mainPage.waitElementOfList(number);
 
         assertEquals("Текст не совпадает", quest, mainPage.getElementsBy().get(number).getText());
-    }
-
-    @After
-    public void teardown() {
-        // Закрой браузер
-        driver.quit();
     }
 }
