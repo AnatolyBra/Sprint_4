@@ -3,36 +3,41 @@ package page;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import core.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selenide.*;
 
-public class MainPage {
+public class MainPage extends BasePage {
     public MainPage(String url) {
         Selenide.open(url);
     }
 
-    private WebDriver driver;
-
     public MainPage(WebDriver driver) {
-        this.driver = driver;
+        BasePage.driver = driver;
+    }
+
+    public MainPage(){
+
     }
 
     //Selenide
     private final SelenideElement nameMenu = $x(".//div[text()='Вопросы о важном']");
     private final SelenideElement cookButton = $(byId("rcc-confirm-button"));
     private final ElementsCollection listMenu = $$x(".//div[@class='accordion__item']");
-    private final ElementsCollection orderButtons = $$x(".//button[text()='Заказать']");
 
     //Selenium
     private final By nameMenuSelenium = By.xpath(".//div[text()='Вопросы о важном']");
     private final By cookButtonSelenium = By.id("rcc-confirm-button");
+    private final By orderButton = By.xpath(".//*[text()='Заказать']");
     //список вопросов
     private final By listMenuSelenium = By.xpath(".//div[@class='accordion__item']");
     //коллекция из двух кнопок Заказать
@@ -46,11 +51,6 @@ public class MainPage {
     //спуститься к списку вопросов
     public void scrollToHeader() {
         nameMenu.scrollTo();
-    }
-
-    //спуститься к кнопке заказа
-    public void scrollToOrder(int number) {
-        orderButtons.get(number).scrollTo();
     }
 
     //принять куки
@@ -90,5 +90,14 @@ public class MainPage {
 
     public void acceptByCook() {
         driver.findElement(cookButtonSelenium).click();
+    }
+
+    public void clickOrder(){
+        driver.findElement(orderButton).click();
+    }
+
+    public void waitElementOfList(int number){
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.visibilityOf(getElementsBy().get(number)));
     }
 }
